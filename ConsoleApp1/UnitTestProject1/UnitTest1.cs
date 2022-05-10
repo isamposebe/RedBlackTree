@@ -9,83 +9,121 @@ namespace UnitTestProject1
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void CheckingSpeedWhenDiveSearchSheet()
         {
             List<int> mas = new List<int>();
+            int numInt = 2;
+            for (int i = 0; i < 4; i++)
+            {
+                mas.Add(i);
+            }
 
+            bool rez = false;
+            bool CheckYes = false;
             
-
-            for (int i = 0; i < 10; i++)
-            {
-               mas.Add(i);
-            }
-
-            mas.Remove(6);
-            var contains= mas.Contains(6);
-            Assert.AreEqual(false, contains);
-        }
-        [TestMethod]
-        public void TestMethod2()
-        {
-            RB tree = new RB();
-            for (int i = 1; i < 4; i++)
-            {
-                tree.Insert(i+1);
-            }
-            tree.Delete(2);
-            var rez = tree.Find(2);
-            Assert.AreEqual(false, rez);
-        }
-
-        [TestMethod]
-        public void TestMethodBid1()
-        {
-            int[] mas = new int[1000000];
-            bool chek = false;
-
-            for (int i = 0; i < mas.Length; i++)
-            {
-                mas[i] = i + 1;
-            }
-
             foreach (var item in mas)
             {
-                if (item == 123)
+                if (item == numInt)
                 {
-                    chek = true;
+                    CheckYes = true;
+                    break;
+                }                
+            }
+            mas.Remove(numInt);
+            bool CheckNot = false;
+            foreach (var item in mas)
+            {
+                if (item == numInt)
+                {
+                    CheckNot = true;
+                    break;
                 }
             }
-            Assert.AreEqual(true, chek);
+
+            if (CheckYes && !CheckNot)
+            {
+                rez = true;
+            }
+            Assert.AreEqual(true, rez);
         }
         [TestMethod]
-        public void TestMethodBig2()
+        public void CheckingSpeedWhenDiveSearchRB()
         {
             RB tree = new RB();
-            
-            for (int i = 1; i < 1000000; i++)
+
+            for (int i = 0; i < 4; i++)
             {
                 tree.Insert(i + 1);
             }
-            tree.Insert(5);
-            tree.Insert(3);
-            tree.Insert(7);
-            
-            tree.Insert(9);
-            
-            tree.Insert(123);
-            tree.Insert(6);
-            try
+
+            bool rez = false;
+            var CheckYes = tree.CheckingElement(2);
+            tree.Delete(2);
+            var CheckNot = tree.CheckingElement(2);
+            if (CheckYes && !CheckNot)
             {
-                string rez = tree.Find(1).ToString();
-                Assert.AreEqual("123", rez);
+                rez = true;
             }
-            catch
+            Assert.AreEqual(true, rez);
+        }
+
+        [TestMethod]
+        public void CheckingSpeedWhenDiveSearchSheetBid()
+        {
+            List<int> mas = new List<int>();
+            int numInt = 999990;
+            for (int i = 0; i < 1000000; i++)
             {
-                Assert.AreEqual("Ljltkfnm", "Ljltkfnm");
+                mas.Add(i);
             }
 
-          
-            
+            bool rez = false;
+            bool CheckYes = false;
+
+            foreach (var item in mas)
+            {
+                if (item == numInt)
+                {
+                    CheckYes = true;
+                    break;
+                }
+            }
+            mas.Remove(numInt);
+            bool CheckNot = false;
+            foreach (var item in mas)
+            {
+                if (item == numInt)
+                {
+                    CheckNot = true;
+                    break;
+                }
+            }
+
+            if (CheckYes && !CheckNot)
+            {
+                rez = true;
+            }
+            Assert.AreEqual(true, rez);
+        }
+        [TestMethod]
+        public void CheckingSpeedWhenDiveSearchRB_Big()
+        {
+            RB tree = new RB();
+            int numInt = 999990;
+            for (int i = 0; i < 1000000; i++)
+            {
+                tree.Insert(i + 1);
+            }
+
+            bool rez = false;
+            var CheckYes = tree.CheckingElement(numInt);
+            tree.Delete(numInt);
+            var CheckNot = tree.CheckingElement(numInt);
+            if (CheckYes && !CheckNot)
+            {
+                rez = true;
+            }
+            Assert.AreEqual(true, rez);
         }
 
     }
