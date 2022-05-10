@@ -9,9 +9,6 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             RB tree = new RB();
-
-
-
             tree.Insert(1);
             tree.Insert(2);
             tree.Insert(3);
@@ -20,10 +17,6 @@ namespace ConsoleApp1
             tree.DisplayTree();
             Console.ReadLine();
         }
-        static void test1()
-        {
-            
-        }
+
     }
-    
 }
