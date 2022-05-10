@@ -11,37 +11,80 @@ namespace ClassRB
         Red,
         Black
     }
+    /// <summary>
+    /// Object of type Node contains 4 properties
+    /// Colour
+    /// Left
+    /// Right
+    /// Parent
+    /// Data
+    /// </summary>
+    public class Node : RB
+    {
+        public Color colour;
+
+        public Node left;
+
+        public Node right;
+
+        public Node parent;
+
+        public int data;
+
+
+        public Node(int data) { this.data = data; }
+
+        public Node(Color colour) { this.colour = colour; }
+
+        public Node(int data, Color colour) { this.data = data; this.colour = colour; }
+
+        public Node()
+        {
+        }
+
+        /// <summary>
+        ///     Отображение значения головы дерева
+        /// </summary>
+        /// <returns>Значение (data)</returns>
+        public int СonclusionHeadTree()
+        {
+            return data;
+        }
+        
+    }
     public class RB
     {
 
-        /// <summary>
-        /// Object of type Node contains 4 properties
-        /// Colour
-        /// Left
-        /// Right
-        /// Parent
-        /// Data
-        /// </summary>
-        public class Node
-        {
-            public Color colour;
-            public Node left;
-            public Node right;
-            public Node parent;
-            public int data;
 
-            public Node(int data) { this.data = data; }
-            public Node(Color colour) { this.colour = colour; }
-            public Node(int data, Color colour) { this.data = data; this.colour = colour; }
-        }
+
         /// <summary>
         /// Root node of the tree (both reference & pointer)
         /// </summary>
         private Node root;
+
         /// <summary>
         /// Новый экземпляр красно-черного объекта дерева
         /// </summary>
         public RB() { }
+
+
+        /// <summary>
+        ///     Провека на нахождение элемента
+        /// </summary>
+        /// <param name="elenent">Значения которое надо найти</param>
+        /// <returns>Есть элемент или нету</returns>
+        public bool CheckingElement(int elenent)
+        {
+            bool res = false;
+            RB newRB = new RB();
+            newRB.root = root;
+            if (newRB.Find(elenent) != null)
+            {
+                res = true;
+            }
+            return res;
+        }
+
         /// <summary>
         /// Влево вращаться
         /// </summary>
@@ -62,7 +105,7 @@ namespace ClassRB
             if (X.parent == null)
             {
                 root = Y;
-                
+
             }
             else if (X == X.parent.left)
             {
@@ -80,6 +123,7 @@ namespace ClassRB
             }
 
         }
+
         /// <summary>
         /// Rotate Right
         /// </summary>
@@ -117,6 +161,7 @@ namespace ClassRB
                 Y.parent = X;
             }
         }
+
         /// <summary>
         /// Display Tree
         /// </summary>
@@ -132,10 +177,12 @@ namespace ClassRB
                 InOrderDisplay(root);
             }
         }
+
         /// <summary>
-        /// Найдите предмет в дереве
+        /// Найдите элемент в дереве
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">Значение элемента(data)</param>
+        /// <returns>Элемент дерева(Null -> Элемент не найден)</returns>
         public Node Find(int key)
         {
             bool isFound = false;
@@ -147,9 +194,10 @@ namespace ClassRB
                 {
                     break;
                 }
-                if (key != temp.data)
+                if (key == temp.data)
                 {
-                    break;
+                    isFound = true;
+                    item = temp;
                 }
                 if (key < temp.data)
                 {
@@ -159,11 +207,11 @@ namespace ClassRB
                 {
                     temp = temp.right;
                 }
-                if (key == temp.data)
-                {
-                    isFound = true;
-                    item = temp;
-                }
+                //if (key != temp.data)
+                //{
+                //    break;
+                //}
+
             }
             if (isFound)
             {
@@ -221,6 +269,7 @@ namespace ClassRB
             newItem.colour = Color.Red;//colour the new node red
             InsertFixUp(newItem);//call method to check for violations and fix
         }
+
         private void InOrderDisplay(Node current)
         {
             if (current != null)
@@ -230,6 +279,7 @@ namespace ClassRB
                 InOrderDisplay(current.right);
             }
         }
+
         private void InsertFixUp(Node item)
         {
             //Checks Red-Black Tree properties
@@ -291,6 +341,7 @@ namespace ClassRB
                 root.colour = Color.Black;//re-colour the root black as necessary
             }
         }
+
         /// <summary>
         /// Deletes a specified value from the tree
         /// </summary>
@@ -349,6 +400,7 @@ namespace ClassRB
             }
 
         }
+
         /// <summary>
         /// Checks the tree for any violations after deletion and performs a fix
         /// </summary>
@@ -418,6 +470,7 @@ namespace ClassRB
             if (X != null)
                 X.colour = Color.Black;
         }
+
         private Node Minimum(Node X)
         {
             while (X.left.left != null)
@@ -430,6 +483,7 @@ namespace ClassRB
             }
             return X;
         }
+
         private Node TreeSuccessor(Node X)
         {
             if (X.left != null)
